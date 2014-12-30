@@ -1,0 +1,11 @@
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\bin\Debug\NAI.exe.config
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\bin\Debug\NAI.exe
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\bin\Debug\NAI.pdb
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.csprojResolveAssemblyReference.cache
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.frmMain.resources
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.Properties.Resources.resources
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.csproj.GenerateResource.Cache
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.exe
+c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.pdb
+C:\Users\Eric\Documents\Visual Studio 2015\Projects\NAI\NAI\obj\Debug\NAI.Emulator.resources
+C:\Users\Eric\Documents\Visual Studio 2015\Projects\NAI\NAI\obj\Debug\NAI.EditorOptions.resources

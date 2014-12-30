@@ -1,0 +1,2 @@
+Stuff: addi r2, r0, 999 //stiff
+Cool:  sub  r23, r25, r10 //dsfdsfds

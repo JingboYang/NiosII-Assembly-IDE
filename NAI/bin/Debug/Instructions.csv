@@ -1,0 +1,71 @@
+53,17,,,,,,
+add,313A,3,reg,reg,reg,r3 = r4 + r5,add r3% r4% r5
+addi,04,3,reg,reg,const,r3 = r4 + const,addi r3% r4% 90
+and,0E3A,3,reg,reg,reg,r3 = r4 & r5,and r3% r4% r5
+andhi,2C,3,reg,reg,const,r3 = r4 & const (half word),andhi r3% r4% 0xAAAA
+andi,0C,3,reg,reg,const,r3 = r4 & const,andi r3% r4% 0b1111
+beq,26,3,reg,reg,lbl,branch to LABEL if r3 == r4,beq r3% r4% LABEL
+bge,0E,3,reg,reg,lbl,branch to LABEL if r3 >= r9,bge r3% r9% LABEL
+bgt,PSUDO,3,reg,reg,lbl,branch to LABEL if r3 > r7,bgt r3% r7% LABEL
+ble,PSUDO,3,reg,reg,lbl,branch to LABEL if r3 <= r8,ble r3% r8% LABEL
+blt,PSUDO,3,reg,reg,lbl,branch to LABEL if r3 < r6,blt r3% r6% LABEL
+bne,1E,3,reg,reg,lbl,branch to LABEL if r3 != r5,bne r3% r5% LABEL
+br,06,1,lbl,branch to a location,br END,,
+call,00,1,lbl,call a method,call DO_STUFF,,
+cmpeq,203A,3,reg,reg,reg,r3 = 1 if r4 == r5,cmpeq r3% r4% r5
+cmpge,PSUDO,3,reg,reg,reg,r3 = 1 if r4 >= r5,cmpge r3% r4% r5
+cmpgeu,283A,3,reg,reg,reg,r3 = 1 if r4 >= r5,cmpgeu r3% r4% r5
+cmpgt,PSUDO,3,reg,reg,reg,r3 = 1 if r4 > r5,cmpgt r3% r4% r5
+cmpgtu,PSUDO,3,reg,reg,reg,r3 = 1 if r4 > r5,cmpgtu r3% r4% r5
+cmple,PSUDO,3,reg,reg,reg,r3 = 1 if r4 <= r5,cmple r3% r4% r5
+cmpleu,PSUDO,3,reg,reg,reg,r3 = 1 if r4 <= r5,cmpleu r3% r4% r5
+cmplt,103A,3,reg,reg,reg,r3 = 1 if r4 < r5,cmplt r3% r4% r5
+cmpltu,303A,3,reg,reg,reg,r3 = 1 if r4 < r5,cmpltu r3% r4% r5
+cmpne,PSUDO,3,reg,reg,reg,r3 = 1 if r4 != r5,cmpne r3% r4% r5
+div,253A,3,reg,reg,reg,r3 = r4 / r5,div r3% r4% r5
+divi,PSUDO,3,reg,reg,const,r3 = r4 / const,divi r3% r4% 88
+eret,013A,0,exception return,eret,,,
+jmp,0D3A,1,lbl,jump to a location% similar to br,jmp START,,
+jmpi,01,1,const,jump to a location,jmpi 0x20,,
+ldw,17,2,reg,addr,load word from address,ldw r2% 0(r0),
+ldwio,PSUDO,2,reg,addr,load word from address% no cache,ldwio r2% 0(r0),
+mov,PSUDO,2,reg,reg,r4 = r3,mov r4% r3,
+movi,PSUDO,2,reg,const,r4 = const (short),movi r4% 0xFFFF,
+movia,PSUDO,2,reg,const,r4 = const (full length),movia r4% 0xFFFFFFFF,add r3% r4% r11
+mul,273A,3,reg,reg,reg,r3 = r4 * r5,mul r3% r4% r5
+muli,24,3,reg,reg,const,r3 = r4 * const,muli r3% r4% 10
+nor,0B3A,3,reg,reg,reg,r3 = r4 ~| r7,nor r3% r4% r7
+norhi,PSUDO,3,reg,reg,const,r3 = r4 ~| const,nori r3% r4% 0xBBBB
+nori,PSUDO,3,reg,reg,const,r3 = r4 ~| const,nori r3% r4% 0x10001
+or,163A,3,reg,reg,reg,r3 = r4 | r5,or r3% r4% r5
+orhi,34,3,reg,reg,const,r3 = r4 | const,ori r3% r4% 0xBBBB
+ori,14,3,reg,reg,const,r3 = r4 | const,ori r3% r4% 0x9999
+ret,053A,0,function call return,ret,,,
+sll,133A,3,reg,reg,reg,r3 = shift r3 left by r5,sll r3% r3% r4
+slli,123a,3,reg,reg,const,r3 = shift r3 left by const,slli r3% r3% 9
+srl,1B3A,3,reg,reg,reg,r3 = shift r3 right by r4,srl r3% r3% r4
+srli,1A3A,3,reg,reg,const,r3 = shift r3 right by const,srli r3% r3% 10
+stw,15,2,reg,addr,store word to address,stw r2% LABEL(r0),
+stwio,PSUDO,2,reg,addr,store word to address% no cache,stwio r2% 0(r0),
+sub,393A,3,reg,reg,reg,r3 = r4 - const,sub r3% r4% r6
+subi,PSUDO,3,reg,reg,const,r3 = r4 - r7,subi r3% r4% 90
+xor,1E3A,3,reg,reg,reg,r3 = r4 ^ r6,xor r3% r4% r6
+xorhi,3C,3,reg,reg,cosnt,r3 = r4 ^ const,xori r3% r4% 0xBBBB
+xori,1C,3,reg,reg,const,r3 = r4 ^ const,xori r3% r4% 0x1010011
+.section,DIR,1,dir,a section of code,.section,.section d1% 0(d0),
+.data,DIR,0,indicate it is data,.data 0xDEADBEEF,,.data i0% 0(i0),
+.align,DIR,1,const,a section of code,.section,.align c1% 0(c0),
+.long,DIR,1,const,indicate it is data,.data 0xDEADBEEF,.long c1% 0(c0),
+.text,DIR,0,a section of code,.section,,.text a0% 0(a0),
+.global,DIR,1,lbl,indicate it is data,.data 0xDEADBEEF,.global l1% 0(l0),
+.main,DIR,0,a section of code,.section,,.main a0% 0(a0),
+.equ,DIR,2,lbl,const,,.equ l2% 0(l0),
+.end,DIR,0,indicate it is data,.data 0xDEADBEEF,,.end i0% 0(i0),
+.org,DIR,1,const,a section of code,.section,.org c1% 0(c0),
+.word,DIR,1,const,indicate it is data,.data 0xDEADBEEF,.word c1% 0(c0),
+.hword,DIR,1,const,a section of code,.section,.hword c1% 0(c0),
+.byte,DIR,1,const,indicate it is data,.data 0xDEADBEEF,.byte c1% 0(c0),
+.exceptions,DIR,1,ax,indicate exception handler,".exception% ""ax""",.exceptions a1% 0(a0),
+.reset,DIR,1,ax,indicate operations performed on reset,".reset% ""ax""",.reset a1% 0(a0),
+.extern,DIR,1,lbl,indicate external variable,.extern GLOBAL_VAR,.extern l1% 0(l0),
+.include,DIR,1,filename,indicate file to be included,".include ""library.s""",.include f1% 0(f0),
