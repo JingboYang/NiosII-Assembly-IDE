@@ -33,26 +33,53 @@ namespace NAI
 
         }
 
-        private void btnRun_Click(object sender, EventArgs e)
+        private void btnCompile_Click(object sender, EventArgs e)
         {
+
             // save to temp file
             string path = "_compile_.NoTouch";
             string fullFile = rtbCode.Text;
             fullFile = fullFile.Replace("\n", "\r\n");
+
+            if (fullFile.Length < 10)
+            {
+                MessageBox.Show("This is code??");
+                return;
+            }
 
             StreamWriter output = new StreamWriter(path);
             output.Write(fullFile);
             output.Close();
 
             // load again
+            loading = true;
             rtbCode.Clear();
-            Compiler compile = new Compiler(rtbCode, path);
+            Code curCode = new Code(rtbCode, path);
+            loading = false;
 
-            /*
-            dgvError.DataSource = curCode.errorList;
-            DataGridViewColumn colErrorMsg = dgvError.Columns[1];
-            colErrorMsg.Width = 450;*/
+            if (curCode.errorList.Rows.Count != 0)
+            {
+                MessageBox.Show("Check syntax first");
 
+                dgvError.DataSource = curCode.errorList;
+                DataGridViewColumn colErrorMsg = dgvError.Columns[1];
+                colErrorMsg.Width = 450;
+
+                return;
+            } else
+            {
+                if (!Emulator.running)
+                {
+                    Emulator emu = new Emulator();
+                    emu.code = curCode;
+                    emu.Show();
+                } else
+                {
+                    Emulator.instance.BringToFront();
+                }
+            }
+
+            
         }
 
         private void btnLoad_Click(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NAI
 {
-    class Instruction
+    public class Instruction
     {
 
         public string line;

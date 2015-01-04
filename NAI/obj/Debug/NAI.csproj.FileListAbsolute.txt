@@ -9,3 +9,14 @@ c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.exe
 c:\users\eric\documents\visual studio 2015\Projects\NAI\NAI\obj\Debug\NAI.pdb
 C:\Users\Eric\Documents\Visual Studio 2015\Projects\NAI\NAI\obj\Debug\NAI.Emulator.resources
 C:\Users\Eric\Documents\Visual Studio 2015\Projects\NAI\NAI\obj\Debug\NAI.EditorOptions.resources
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\bin\Debug\NAI.exe.config
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.exe
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.pdb
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\bin\Debug\NAI.exe
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\bin\Debug\NAI.pdb
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.csprojResolveAssemblyReference.cache
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.EditorOptions.resources
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.Emulator.resources
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.frmMain.resources
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.Properties.Resources.resources
+A:\Google Drive\Programs\Github\NiosII-Assembly-IDE\NAI\obj\Debug\NAI.csproj.GenerateResource.Cache

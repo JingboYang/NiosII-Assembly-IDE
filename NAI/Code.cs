@@ -12,13 +12,13 @@ using System.Data;
 
 namespace NAI
 {
-    class Code
+    public class Code
     {
 
         private string filename;
         private RichTextBox rtbCode;
 
-        private ArrayList AllCode;
+        public List<LineOfCode> AllCode;
         public DataTable errorList;
 
         public Code()
@@ -31,7 +31,7 @@ namespace NAI
             rtbCode = rtbCode_;
             filename = filename_;
 
-            AllCode = new ArrayList();
+            AllCode = new List<LineOfCode>();
 
             errorList = new DataTable();
             DataColumn colLineNum = new DataColumn("Line #", System.Type.GetType("System.Int32"));

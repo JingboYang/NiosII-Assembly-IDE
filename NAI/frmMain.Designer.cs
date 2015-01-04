@@ -74,7 +74,7 @@
             this.btnCompile.TabIndex = 1;
             this.btnCompile.Text = "Compile";
             this.btnCompile.UseVisualStyleBackColor = true;
-            this.btnCompile.Click += new System.EventHandler(this.btnRun_Click);
+            this.btnCompile.Click += new System.EventHandler(this.btnCompile_Click);
             // 
             // lblLCD
             // 
@@ -261,7 +261,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
-            this.Text = "NiosII Assembly Interpreter";
+            this.Text = "NiosII Assembly IDE";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvError)).EndInit();

@@ -8,168 +8,99 @@ namespace NAI
 {
     class Word
     {
-        
 
-        int type; // 0 = actual code, 2 = directive, 3 = .data
+        public int memAddr;
+        public string instr;
+        public int opr1;
+        public int opr2;
+        public int opr3;
 
-        int position;
+        public int shift;
+        public int reg;
 
-        string label;
-        string instr;
-        int[] opr;  // stores the register #
-        String immedSTR;  // store address, label, and constants
-        string comment;
-
-        public Word(LineOfCode loc, int position_)
+        public Word(int memAddr_, string instr_, string opr1_, string opr2_, string opr3_)
         {
-            opr = new int[3];
-            if (loc.instrIndex < LineOfCode.numInstr)
+            memAddr = memAddr_;
+            instr = instr_;
+
+            if (opr1_.Contains('('))
             {
-                type = 0;
-            } else if (loc.thisLine[1].Equals(".data"))
-            {
-                type = 3;
-            } else
-            {
-                type = 2;
+                getShiftAndReg(opr1_);
             }
-
-            position = position_;
-
-            label = loc.thisLine[0];
-            instr = loc.thisLine[1];
-
-            for (int i = 0; i < LineOfCode.instrSet[loc.instrIndex].numOpr; i++)
+            else
             {
-                if (LineOfCode.instrSet[loc.instrIndex].opr[i].Equals("reg"))
+                int temp = LineOfCode.checkReg(opr1_);
+                if (temp == -3)
                 {
-                    opr[i] = LineOfCode.checkIsInstruction(loc.thisLine[2 + i]);
-                } else
+                    opr1 = Convert.ToInt32(opr1_);
+                }
+                else if (temp == -2)
                 {
-                    immedSTR = loc.thisLine[2 + i]; 
+                    opr1 = -1;
+                }
+                else
+                {
+                    opr1 = temp;
                 }
             }
 
-            comment = loc.thisLine[5];
+            if (opr2_.Contains('('))
+            {
+                getShiftAndReg(opr2_);
+            }
+            else
+            {
+                int temp = LineOfCode.checkReg(opr2_);
+                if (temp == -3)
+                {
+                    opr2 = Convert.ToInt32(opr2_);
+                }
+                else if (temp == -2)
+                {
+                    opr2 = -1;
+                }
+                else
+                {
+                    opr2 = temp;
+                }
+            }
+
+            if (opr3_.Contains('('))
+            {
+                getShiftAndReg(opr3_);
+            }
+            else
+            {
+                int temp = LineOfCode.checkReg(opr3_);
+                if (temp == -3)
+                {
+                    opr3 = Convert.ToInt32(opr3_);
+                }
+                else if (temp == -2)
+                {
+                    opr3 = -1;
+                }
+                else
+                {
+                    opr3 = temp;
+                }
+            }
+
 
         }
 
-        public static Word[] GetWord(LineOfCode loc, int number, Compiler comp)
+        public void getShiftAndReg(string temp)
         {
-            
-            if (loc.thisLine[1].Equals("bgt"))
-            {
-                loc.thisLine[1] = "blt";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp; 
-            }
-            /*else if (loc.thisLine[1].Equals("bgtu"))
-            {
-                loc.thisLine[1] = "bltu";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp; 
-            }*/
-            else if (loc.thisLine[1].Equals("ble"))
-            {
-                loc.thisLine[1] = "bge";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            /*else if (loc.thisLine[1].Equals("bleu"))
-            {
-                loc.thisLine[1] = "bgeu";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp; 
-            }*/
-            else if (loc.thisLine[1].Equals("cmpgt"))
-            {
-                loc.thisLine[1] = "cmplt";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            /*else if (loc.thisLine[1].Equals("cmpgti"))
-            {
-                loc.thisLine[1] = "cmplti";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp; 
-            }*/
-            else if (loc.thisLine[1].Equals("cmpgtu"))
-            {
-                loc.thisLine[1] = "cmpltu";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            else if (loc.thisLine[1].Equals("cmpgtui"))
-            {
-                loc.thisLine[1] = "cmpltui";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            else if (loc.thisLine[1].Equals("cmple"))
-            {
-                loc.thisLine[1] = "cmpge";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            else if (loc.thisLine[1].Equals("cmplei"))
-            {
-                loc.thisLine[1] = "cmpgei";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            else if (loc.thisLine[1].Equals("cmpleui"))
-            {
-                loc.thisLine[1] = "cmpgeui";
-                string temp = loc.thisLine[3];
-                loc.thisLine[3] = loc.thisLine[4];
-                loc.thisLine[4] = temp;
-            }
-            else if (loc.thisLine[1].Equals("mov"))
-            {
-                loc.thisLine[1] = "add";
-                loc.thisLine[4] = "r0";
-            }
-            else if (loc.thisLine[1].Equals("movi"))
-            {
+            string[] delim = { "(", ")", " " };
+            string[] temps = temp.Split(delim, StringSplitOptions.RemoveEmptyEntries);
 
-            }
-            else if (loc.thisLine[1].Equals("movhi"))
-            {
+            shift = Convert.ToInt32(temps[0]);
+            reg = LineOfCode.checkReg(temps[1]);
+        }
 
-            }
-            else if (loc.thisLine[1].Equals("movia"))
-            {
-
-            }
-            else if (loc.thisLine[1].Equals("movui"))
-            {
-
-            }
-            else if (loc.thisLine[1].Equals("subi"))
-            {
-
-            }
-            else if (loc.thisLine[1].Equals("bgt"))
-            {
-
-            }
-            else if (loc.thisLine[1].Equals("bgt"))
-            {
-
-            }
-
-            return null;
-
+        public override string ToString()
+        {
+            return memAddr + ", " + instr + ", " + opr1 + ", " + opr2 + ", " + opr3;
         }
 
     }

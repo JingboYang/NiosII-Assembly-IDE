@@ -68,10 +68,12 @@
     <Compile Include="Instruction.cs" />
     <Compile Include="LineOfCode.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Nios.cs" />
-    <Compile Include="Word.cs" />
+    <Compile Include="Nios.cs">
+      <SubType>form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RichTextBoxExtensions.cs" />
+    <Compile Include="Word.cs" />
     <EmbeddedResource Include="EditorOptions.resx">
       <DependentUpon>EditorOptions.cs</DependentUpon>
     </EmbeddedResource>

@@ -10,7 +10,7 @@ using System.Collections;
 
 namespace NAI
 {
-    class LineOfCode
+    public class LineOfCode
     {
         private static bool gotInstr;
         public static Instruction[] instrSet;
@@ -170,7 +170,7 @@ namespace NAI
                         else if (instrSet[instrNum].opr[i].Equals("const"))
                         {
 
-                            int validConst = checkConstant(temps[i + 1].Trim());
+                            int validConst = checkConstantLabel(temps[i + 1].Trim());
 
                             if (validConst == -1)
                             {
@@ -264,7 +264,7 @@ namespace NAI
                                 }
                                 else if (instrSet[instrNum].opr[i].Equals("const"))
                                 {
-                                    int validConst = checkConstant(temps[i + 2].Trim());
+                                    int validConst = checkConstantLabel(temps[i + 2].Trim());
 
                                     if (validConst == -1)
                                     {
@@ -420,6 +420,103 @@ namespace NAI
             return -1;
         }
 
+        public static int checkConstantLabel(string str1)    // 2 = binary, 10 = decimal, 16 = hex, -1 = number fail, -2 = invalid label
+        {
+            if (str1.Length == 0)
+            {
+                return -1;
+            }
+
+            if (str1.ElementAt(0) > 47 && str1.ElementAt(0) < 58)   // is a number
+            {
+                if (str1.Length != 1)   // length more than 1, need to check
+                {
+                    if (str1.ElementAt(1) == 'x' || str1.ElementAt(1) == 'X')   // is hex
+                    {
+                        if (str1.ElementAt(0) != '0')
+                        {
+                            return -1;
+                        }
+                        else
+                        {
+                            string temp = str1.Substring(2);
+                            for (int i = 0; i < temp.Length; i++)
+                            {
+                                if ((temp.ElementAt(i) > 47 && temp.ElementAt(i) < 58) ||
+                                        (temp.ElementAt(i) > 64 && temp.ElementAt(i) < 71) ||
+                                        (temp.ElementAt(i) > 96 && temp.ElementAt(i) < 103))
+                                {
+                                    // do nothing
+                                }
+                                else
+                                {
+                                    /*MessageBox.Show("1");
+                                    MessageBox.Show(temp);*/
+                                    return -1;
+                                }
+                            }
+                            return 16;
+                        }
+
+                    }
+                    else if (str1.ElementAt(1) == 'b' || str1.ElementAt(1) == 'B')    // is binary
+                    {
+
+                        if (str1.ElementAt(0) != '0')
+                        {
+                            // MessageBox.Show("2");
+                            return -1;
+                        }
+                        else
+                        {
+                            string temp = str1.Substring(2);
+                            try
+                            {
+                                int temp2 = Convert.ToInt32(temp);
+                                return 2;
+                            }
+                            catch (Exception e)
+                            {
+                                // MessageBox.Show("3");
+                                return -1;
+                            }
+                        }
+
+                    }
+                    else    // is decimal
+                    {
+                        try
+                        {
+                            int temp = Convert.ToInt32(str1);
+                            return 10;
+                        }
+                        catch (Exception e)
+                        {
+                            // MessageBox.Show("4");
+                            return -1;
+                        }
+
+                    }
+                }
+                else // length is 1, has to be decimal
+                {
+                    return 10;
+                }
+
+            }
+            else  // end is a number
+            {
+                if (checkLabel(str1))
+                {
+                    return 999;
+                }
+                else
+                {
+                    return -2;
+                }
+            }
+        }
+
         public static int checkConstant(string str1)    // 1 = label, 2 = binary, 10 = decimal, 16 = hex, -1 = number fail, -2 = invalid label
         {
             if (str1.Length == 0)
@@ -526,6 +623,7 @@ namespace NAI
                 }
                 else
                 {
+                    // MessageBox.Show("'" + label.ElementAt(i) + "'");
                     return false;
                 }
             }
@@ -551,7 +649,7 @@ namespace NAI
                 return false;
             }
 
-            if (checkReg(temp[1]) == -1)
+            if (checkReg(temp[1]) < 0)
             {
                 return false;
             }
@@ -563,6 +661,25 @@ namespace NAI
             }catch (Exception e)
             {
                 return checkLabel(temp[0]);
+            }
+
+        }
+
+        public static string[] getLabelFromAddress(string str)
+        {
+
+            string[] delim = { "(", ")" };
+            string[] temp = str.Split(delim, StringSplitOptions.RemoveEmptyEntries);
+
+            try
+            {
+                int temp2 = Convert.ToInt32(temp[0]);
+                temp[0] = null;
+                return temp;
+            }
+            catch (Exception e)
+            {
+                return temp;
             }
 
         }
@@ -593,7 +710,7 @@ namespace NAI
         {
             if (stuff.Length == 0)
             {
-                return -1;
+                return -2;
             }
 
             if (stuff.ElementAt(0) == 'r')
@@ -632,7 +749,8 @@ namespace NAI
 
             }
 
-            return -1;
+            // MessageBox.Show("Here");
+            return -3;
         }
 
         public static void GetInstruction(string instrFile)
